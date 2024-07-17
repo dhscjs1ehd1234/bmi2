@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI 계산기</h1>
+        <label for="height">키 (cm):</label>
+        <input type="number" id="height" placeholder="키를 입력하세요">
+        
+        <label for="weight">몸무게 (kg):</label>
+        <input type="number" id="weight" placeholder="몸무게를 입력하세요">
+        
+        <button onclick="calculateBMI()">BMI 계산</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const resultElement = document.getElementById('result');
+
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                resultElement.textContent = '유효한 키와 몸무게를 입력하세요.';
+                return;
+            }
+
+            const bmi = weight / (height * height);
+            let category = '';
+
+            if (bmi < 18.5) {
+                category = '저체중';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                category = '정상 체중';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                category = '과체중';
+            } else {
+                category = '비만';
+            }
+
+            resultElement.textContent = `당신의 BMI는 ${bmi.toFixed(2)}로 ${category}입니다.`;
+        }
+    </script>
+</body>
+</html>
